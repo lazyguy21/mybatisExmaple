@@ -10,7 +10,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Stude烦ntgdgg{" +
+        return "Stude烦ntgdfgg{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
