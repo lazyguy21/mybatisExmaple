@@ -1,95 +1,106 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014-12-17 14:20:15                          */
+/* Created on:     2014-12-17 15:13:02                          */
 /*==============================================================*/
 
 
-drop table if exists address;
+DROP TABLE IF EXISTS address;
 
-drop table if exists course;
+DROP TABLE IF EXISTS course;
 
-drop table if exists course_enrollment;
+DROP TABLE IF EXISTS course_enrollment;
 
-drop table if exists student;
+DROP TABLE IF EXISTS student;
 
-drop table if exists tutor;
+DROP TABLE IF EXISTS tutor;
 
 /*==============================================================*/
 /* Table: address                                               */
 /*==============================================================*/
-create table address
+CREATE TABLE address
 (
-   id                   unsigned integer not null,
-   street               varchar(50),
-   city                 varchar(50),
-   country              varchar(50),
-   state                varchar(50),
-   zip                  varchar(50),
-   primary key (id)
+  id      INTEGER UNSIGNED NOT NULL,
+  street  VARCHAR(50),
+  city    VARCHAR(50),
+  country VARCHAR(50),
+  state   VARCHAR(50),
+  zip     VARCHAR(50),
+  PRIMARY KEY (id)
 );
 
 /*==============================================================*/
 /* Table: course                                                */
 /*==============================================================*/
-create table course
+CREATE TABLE course
 (
-   name                 varchar(20),
-   description          varchar(20),
-   start_date           date,
-   end_date             date,
-   tutor_id             integer unsigned,
-   id                   integer unsigned not null,
-   primary key (id)
+  NAME        VARCHAR(20),
+  description VARCHAR(20),
+  start_date  DATE,
+  end_date    DATE,
+  tutor_id    INTEGER UNSIGNED,
+  id          INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (id)
 );
 
 /*==============================================================*/
 /* Table: course_enrollment                                     */
 /*==============================================================*/
-create table course_enrollment
+CREATE TABLE course_enrollment
 (
-   course_id            integer not null,
-   stu_id               unsigned integer not null,
-   primary key (course_id, stu_id)
+  course_id INTEGER UNSIGNED NOT NULL,
+  stu_id    INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (course_id, stu_id)
 );
 
 /*==============================================================*/
 /* Table: student                                               */
 /*==============================================================*/
-create table student
+CREATE TABLE student
 (
-   id                   unsigned integer not null,
-   name                 varchar(20),
-   email                varchar(50),
-   phone                varchar(30),
-   dob                  varchar(20),
-   addr_id              unsigned integer,
-   primary key (id)
+  id      INTEGER UNSIGNED NOT NULL,
+  NAME    VARCHAR(20),
+  email   VARCHAR(50),
+  phone   VARCHAR(30),
+  dob     VARCHAR(20),
+  addr_id INTEGER UNSIGNED,
+  PRIMARY KEY (id)
 );
 
 /*==============================================================*/
 /* Table: tutor                                                 */
 /*==============================================================*/
-create table tutor
+CREATE TABLE tutor
 (
-   id                   integer,
-   name                 varbinary(20),
-   email                varbinary(50),
-   phone                varbinary(30),
-   addr_id              integer
+  id      INTEGER UNSIGNED NOT NULL,
+  NAME    VARBINARY(20),
+  email   VARBINARY(50),
+  phone   VARBINARY(30),
+  addr_id INTEGER UNSIGNED,
+  PRIMARY KEY (id)
 );
 
-alter table course add constraint FK_aaa foreign key (tutor_id)
-      references tutor (id) on delete restrict on update restrict;
+ALTER TABLE course ADD CONSTRAINT FK_aaa FOREIGN KEY (tutor_id)
+REFERENCES tutor (id)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
 
-alter table course_enrollment add constraint FK_Reference_4 foreign key (course_id)
-      references course (id) on delete restrict on update restrict;
+ALTER TABLE course_enrollment ADD CONSTRAINT FK_Reference_4 FOREIGN KEY (course_id)
+REFERENCES course (id)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
 
-alter table course_enrollment add constraint FK_Reference_5 foreign key (stu_id)
-      references student (id) on delete restrict on update restrict;
+ALTER TABLE course_enrollment ADD CONSTRAINT FK_Reference_5 FOREIGN KEY (stu_id)
+REFERENCES student (id)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
 
-alter table student add constraint FK_Reference_3 foreign key (addr_id)
-      references address (id) on delete restrict on update restrict;
+ALTER TABLE student ADD CONSTRAINT FK_Reference_3 FOREIGN KEY (addr_id)
+REFERENCES address (id)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
 
-alter table tutor add constraint FK_Reference_1 foreign key (addr_id)
-      references address (id) on delete restrict on update restrict;
+ALTER TABLE tutor ADD CONSTRAINT FK_Reference_1 FOREIGN KEY (addr_id)
+REFERENCES address (id)
+  ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
 
