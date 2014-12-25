@@ -1,20 +1,21 @@
 package org.yyf.mybatisexmaple.domain;
 
-import java.util.Date;
-
+//@Alias("Student")
 public class Student {
     private Integer id;
     private String name;
     private String email;
-    private Date dob;
+    private String phone;
+    private String dob;
 
     @Override
     public String toString() {
-        return "Stude烦ntgdfgg{" +
+        return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", dob=" + dob +
+                ", phone='" + phone + '\'' +
+                ", dob='" + dob + '\'' +
                 '}';
     }
 
@@ -42,11 +43,19 @@ public class Student {
         this.email = email;
     }
 
-    public Date getDob() {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 }

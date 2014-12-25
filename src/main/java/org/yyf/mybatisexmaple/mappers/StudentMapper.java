@@ -8,9 +8,13 @@ import java.util.Map;
 public interface StudentMapper {
     List<Student> findAllStudents();
 
-    List<Map> findAllStudentsToMap();
+    public List<Map> findAllStudentsToMap();
 
-    Student findStudentById(Integer id);
+    public Student findStudentById(Integer id);
 
-    void insertStudent(Student student);
+    public Map getStudentByIdToMap(Integer id);
+
+    public void insertStudent(Student student);
+
+    public void insertStudentAutoID(Student student);
 }

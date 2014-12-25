@@ -10,19 +10,28 @@
         <result property="email" column="email"/>
         <result property="dob" column="dob"/>
     </resultMap>
-    <select id="findAllStudents" resultMap="StudentResult">
-        SELECT * FROM STUDENTS
+    <select id="findAllStudents" resultType="Student">
+        SELECT * FROM STUDENT
     </select>
     <select id="findAllStudentsToMap" resultType="map">
-        SELECT * FROM STUDENTS
+        SELECT * FROM STUDENT
     </select>
     <select id="findStudentById" parameterType="int"
             resultType="Student">
-        SELECT STUD_ID AS STUDID, NAME, EMAIL, DOB
-        FROM STUDENTS WHERE STUD_ID=#{Id}
+        SELECT id, NAME, EMAIL, DOB
+        FROM STUDENT WHERE id=#{Id} or 1=1
     </select>
-    <insert id="insertStudent" parameterType="">
-        INSERT INTO STUDENTS(STUD_ID,NAME,EMAIL,DOB)
+    <select id="getStudentByIdToMap" parameterType="int"
+            resultType="map">
+        SELECT id, name, EMAIL, dob
+        FROM STUDENT WHERE id=#{Id}
+    </select>
+    <insert id="insertStudent" parameterType="Student">
+        INSERT INTO STUDENT(id,NAME,EMAIL,DOB)
         VALUES(#{studId },#{name},#{email},#{dob})
+    </insert>
+    <insert id="insertStudentAutoID" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO STUDENT(NAME,EMAIL,DOB)
+        VALUES(#{name},#{email},#{dob})
     </insert>
 </mapper>

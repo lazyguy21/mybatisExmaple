@@ -5,7 +5,8 @@
 <configuration>
     <properties resource="jdbc.properties"></properties>
     <typeAliases>
-        <typeAlias alias="Student" type="org.yyf.mybatisexmaple.domain.Student"/>
+        <!--<typeAlias alias="Student" type="org.yyf.mybatisexmaple.domain.Student"/>-->
+        <package name="org.yyf.mybatisexmaple.domain"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -20,6 +21,7 @@
     </environments>
     <mappers>
         <mapper resource="org/yyf/mybatisexmaple/mappers/StudentMapper.xml"/>
-        <!--<package name="org.yyf.mybatisexmaple.mappers"/>-->
+        <mapper resource="org/yyf/mybatisexmaple/mappers/EnumTestDomainMapper.xml"/>
+        <!--<package name="org.yyf.mybatisexmaple.mappers"></package>-->
     </mappers>
 </configuration>

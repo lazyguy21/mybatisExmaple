@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yyf.mybatisexmaple.mappers.EnumTestDomainMapper">
+    <resultMap id="ETDomain" type="EnumTestDomain">
+        <id column="id" property="id"/>
+        <result column="color" property="color"/>
+        <result column="level" property="level" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+    </resultMap>
+    <select id="getAllItems" resultMap="ETDomain">
+           select id,color,level from enumtestdomain
+    </select>
+    <insert id="insertEnumTestDomain" parameterType="EnumTestDomain">
+          insert into enumtestdomain(id,color,level) values
+          (#{id},#{color},#{level, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler})
+    </insert>
+
+</mapper>
