@@ -2,71 +2,74 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.yyf.mybatisexmaple.mappers.StudentMapper">
+<mapper namespace="org.yyf.mybatisexmaple.mappers.CourseMapper">
 
-    <resultMap type="org.yyf.mybatisexmaple.domain.Student" id="StudentWithAddress">
-        <id property="id" column="id"/>
-        <result property="name" column="name"/>
-        <result property="email" column="email"/>
-        <result property="dob" column="dob"/>
-        <result property="phone" column="phone"/>
-        <result property="address.id" column="addr_id"/>
-        <result property="address.street" column="street"/>
-        <result property="address.city" column="city"/>
-        <result property="address.country" column="country"/>
-        <result property="address.state" column="state"/>
-        <result property="address.zip" column="zip"/>
+    <resultMap type="Course" id="CourseResult">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
     </resultMap>
-    <resultMap id="studentWithAddressUpdated" type="Student">
-        <id property="id" column="id"/>
-        <result property="name" column="name"/>
-        <result property="email" column="email"/>
-        <result property="dob" column="dob"/>
-        <result property="phone" column="phone"/>
-        <association property="address" resultMap="MapAddress"/>
-    </resultMap>
-    <resultMap id="MapAddress" type="Address">
-        <id property="id" column="addr_id"/>
-        <result property="street" column="street"/>
-        <result property="city" column="city"/>
-        <result property="country" column="country"/>
-        <result property="state" column="state"/>
-        <result property="zip" column="zip"/>
-    </resultMap>
-    <select id="findAllStudents" resultType="Student">
-        SELECT * FROM STUDENT
+
+    <select id="getCourses" resultMap="CourseResult">
+        SELECT id,name,description,start_date,end_date,tutor_id FROM COURSE
+        WHERE TUTOR_ID= #{tutorId}
+        <if test="courseName != null">
+            AND NAME LIKE #{courseName}
+        </if>
+        <if test="startDate != null">
+            <![CDATA[
+            AND START_DATE >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != null">
+            <![CDATA[
+            AND END_DATE <= #{endDate}
+            ]]>
+        </if>
     </select>
-    <select id="findAllStudentsToMap" resultType="map">
-        SELECT * FROM STUDENT
+
+    <select id="searchCourses" parameterType="hashmap" resultMap="CourseResult">
+        SELECT * FROM COURSES
+        <where>
+            <if test=" tutorId != null ">
+                TUTOR_ID= #{tutorId}
+            </if>
+            <if test="courseName != null">
+                AND name like #{courseName}
+            </if>
+            <if test="startDate != null">
+                AND start_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND end_date &lt;= #{endDate}
+            </if>
+        </where>
     </select>
-    <select id="findStudentById" parameterType="int"
-            resultType="Student">
-        SELECT id, NAME, EMAIL, DOB
-        FROM STUDENT WHERE id=#{Id} or 1=1
+
+    <select id="searchCoursesByTutors" parameterType="map"
+            resultMap="CourseResult">
+        SELECT * FROM COURSE
+        <if test="tutorIds != null">
+            <where>
+                <foreach item="tutorId" collection="tutorIds">
+                    OR tutor_id=#{tutorId}
+                </foreach>
+            </where>
+        </if>
     </select>
-    <select id="findStudentByIdWithAddress" parameterType="int"
-            resultMap="StudentWithAddress">
-SELECT t1.id, t1.NAME, t1.EMAIL, t1.DOB,
-  t2.id as addr_id,t2.city,t2.country,t2.state,t2.street,t2.zip
-FROM STUDENT t1 left join address t2 on t1.addr_id=t2.id WHERE t1.id=#{Id}
-    </select>
-    <select id="findStudentWithAddressUpdated" parameterType="int"
-            resultMap="studentWithAddressUpdated">
-SELECT t1.id, t1.NAME, t1.EMAIL, t1.DOB,
-  t2.id as addr_id,t2.city,t2.country,t2.state,t2.street,t2.zip
-FROM STUDENT t1 left join address t2 on t1.addr_id=t2.id WHERE t1.id=#{Id}
-    </select>
-    <select id="getStudentByIdToMap" parameterType="int"
-            resultType="map">
-        SELECT id, name, EMAIL, dob
-        FROM STUDENT WHERE id=#{Id}
-    </select>
-    <insert id="insertStudent" parameterType="Student">
-        INSERT INTO STUDENT(id,NAME,EMAIL,DOB)
-        VALUES(#{studId },#{name},#{email},#{dob})
-    </insert>
-    <insert id="insertStudentAutoID" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO STUDENT(NAME,EMAIL,DOB)
-        VALUES(#{name},#{email},#{dob})
-    </insert>
+    <!--<select id="searchCoursesByTutors" parameterType="map"-->
+            <!--resultMap="CourseResult">-->
+        <!--SELECT * FROM COURSES-->
+        <!--<if test="tutorIds != null">-->
+            <!--<where>-->
+                <!--tutor_id IN-->
+                <!--<foreach item="tutorId" collection="tutorIds"-->
+                         <!--open="(" separator="," close=")">-->
+                    <!--#{tutorId}-->
+                <!--</foreach>-->
+            <!--</where>-->
+        <!--</if>-->
+    <!--</select>-->
 </mapper>
