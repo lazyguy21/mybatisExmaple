@@ -7,6 +7,7 @@ public class Student {
     private String email;
     private String phone;
     private String dob;
+    private Address address;
 
     @Override
     public String toString() {
@@ -16,6 +17,7 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", dob='" + dob + '\'' +
+                ", address=" + address +
                 '}';
     }
 
@@ -57,5 +59,13 @@ public class Student {
 
     public void setDob(String dob) {
         this.dob = dob;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

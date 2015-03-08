@@ -1,5 +1,7 @@
 package org.yyf.mybatisexmaple.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -32,6 +34,9 @@ public class StudentServiceTest {
 
     @Test
     public void testFindAkllStudents() {
+        /**
+         * 没有被匹配到的address直接null了，没有报错
+         */
         List<Student> students = studentService.findAllStudents();
         Assert.assertNotNull(students);
         for (Student student : students) {
@@ -78,6 +83,23 @@ public class StudentServiceTest {
         Map map = sqlSession.selectOne("getStudentByIdToMap", 1);
         System.out.println(map);
     }
+    @Test
+    public void testFindStudentByIdWithAddress() {
+        /**
+         */
+        Student studentWithAddress = sqlSession.selectOne("findStudentByIdWithAddress", 1);
+        System.out.println(studentWithAddress);
+    }
+    @Test
+    public void testfindStudentWithAddressUpdated() {
+        /**
+         * The  <association>  element can be used to load the has-one type of associations.
+         In the preceding example, we used the <association>  element, referencing another
+         <resultMap> that is declared in the same XML file.
+         */
+        Student studentWithAddress = sqlSession.selectOne("findStudentWithAddressUpdated", 1);
+        System.out.println(studentWithAddress);
+    }
 
     @Test
     public void testCreateStudent() {
@@ -90,5 +112,28 @@ public class StudentServiceTest {
         studentService.createStudent(student);
         Student newStudent = studentService.findStudentById(id);
         Assert.assertNotNull(newStudent);
+    }
+    @Test
+    public void testUpdateStudent() {
+        Student student = new Student();
+        int id = 3;
+//        student.setId(id);
+        student.setName("student_" + id);
+        student.setEmail("student_" + id + "gmail.com");
+        student.setDob(new Date().toLocaleString());
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        mapper.updateStudent(student);
+    }
+    @Test
+    public void testListPagedStudent() {
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        //获取第1页，10条内容，默认查询总数count
+        PageHelper.startPage(1, 1);
+        List<Student> list = mapper.listPagedStudent();
+//用PageInfo对结果进行包装
+        PageInfo page = new PageInfo(list);
+//测试PageInfo全部属性
+//PageInfo包含了非常全面的分页属性
+        System.out.println(page);
     }
 }

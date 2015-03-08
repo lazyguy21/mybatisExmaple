@@ -4,11 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yyf.mybatisexmaple.mappers.StudentMapper">
 
-    <resultMap type="org.yyf.mybatisexmaple.domain.Student" id="StudentResult">
+    <resultMap type="org.yyf.mybatisexmaple.domain.Student" id="StudentWithAddress">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="email" column="email"/>
         <result property="dob" column="dob"/>
+        <result property="phone" column="phone"/>
+        <result property="address.id" column="addr_id"/>
+        <result property="address.street" column="street"/>
+        <result property="address.city" column="city"/>
+        <result property="address.country" column="country"/>
+        <result property="address.state" column="state"/>
+        <result property="address.zip" column="zip"/>
+    </resultMap>
+    <resultMap id="studentWithAddressUpdated" type="Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="dob" column="dob"/>
+        <result property="phone" column="phone"/>
+        <association property="address" resultMap="MapAddress"/>
+    </resultMap>
+    <resultMap id="MapAddress" type="Address">
+        <id property="id" column="addr_id"/>
+        <result property="street" column="street"/>
+        <result property="city" column="city"/>
+        <result property="country" column="country"/>
+        <result property="state" column="state"/>
+        <result property="zip" column="zip"/>
     </resultMap>
     <select id="findAllStudents" resultType="Student">
         SELECT * FROM STUDENT
@@ -20,6 +43,18 @@
             resultType="Student">
         SELECT id, NAME, EMAIL, DOB
         FROM STUDENT WHERE id=#{Id} or 1=1
+    </select>
+    <select id="findStudentByIdWithAddress" parameterType="int"
+            resultMap="StudentWithAddress">
+SELECT t1.id, t1.NAME, t1.EMAIL, t1.DOB,
+  t2.id as addr_id,t2.city,t2.country,t2.state,t2.street,t2.zip
+FROM STUDENT t1 left join address t2 on t1.addr_id=t2.id WHERE t1.id=#{Id}
+    </select>
+    <select id="findStudentWithAddressUpdated" parameterType="int"
+            resultMap="studentWithAddressUpdated">
+SELECT t1.id, t1.NAME, t1.EMAIL, t1.DOB,
+  t2.id as addr_id,t2.city,t2.country,t2.state,t2.street,t2.zip
+FROM STUDENT t1 left join address t2 on t1.addr_id=t2.id WHERE t1.id=#{Id}
     </select>
     <select id="getStudentByIdToMap" parameterType="int"
             resultType="map">
@@ -34,4 +69,18 @@
         INSERT INTO STUDENT(NAME,EMAIL,DOB)
         VALUES(#{name},#{email},#{dob})
     </insert>
+
+    <update id="updateStudent" parameterType="Student">
+        update student
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="phone != null">phone=#{phone},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="listPagedStudent" resultType="Student">
+          SELECT * FROM STUDENT
+    </select>
 </mapper>

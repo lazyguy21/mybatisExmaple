@@ -13,8 +13,12 @@ public interface StudentMapper {
     public Student findStudentById(Integer id);
 
     public Map getStudentByIdToMap(Integer id);
+    public Student findStudentByIdWithAddress(Integer id);
+    public Student findStudentWithAddressUpdated(Integer id);
 
     public void insertStudent(Student student);
 
     public void insertStudentAutoID(Student student);
+    public void updateStudent(Student student);
+    public List<Student> listPagedStudent();
 }
