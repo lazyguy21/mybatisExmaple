@@ -1,5 +1,6 @@
 package org.yyf.mybatisexmaple.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.yyf.mybatisexmaple.domain.ExtendedStudent;
 import org.yyf.mybatisexmaple.domain.Student;
 import org.yyf.mybatisexmaple.mappers.StudentMapper;
 import org.yyf.mybatisexmaple.util.MyBatisSqlSessionFactory;
@@ -135,5 +137,25 @@ public class StudentServiceTest {
 //测试PageInfo全部属性
 //PageInfo包含了非常全面的分页属性
         System.out.println(page);
+    }
+
+    @Test
+    public void testListPagedStudent2() {
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        //获取第1页，10条内容，默认查询总数count
+        PageHelper.startPage(1, 1);
+        List<Student> list = mapper.listPagedStudent();
+
+//测试PageInfo全部属性
+//PageInfo包含了非常全面的分页属性
+        System.out.println(((Page) list).getTotal());
+    }
+
+    @Test
+    public void testListExtendedStudent() {
+        //就算父类对象属性设置为了private，并不影响子类gettersetter，但是String没有
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        List<ExtendedStudent> list = mapper.listExtendedStudent();
+        System.out.println(list);
     }
 }

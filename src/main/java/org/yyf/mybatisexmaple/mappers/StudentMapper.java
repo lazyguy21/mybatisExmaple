@@ -1,5 +1,6 @@
 package org.yyf.mybatisexmaple.mappers;
 
+import org.yyf.mybatisexmaple.domain.ExtendedStudent;
 import org.yyf.mybatisexmaple.domain.Student;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface StudentMapper {
     public void insertStudentAutoID(Student student);
     public void updateStudent(Student student);
     public List<Student> listPagedStudent();
+
+    public List<ExtendedStudent> listExtendedStudent();
 }

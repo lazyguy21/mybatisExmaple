@@ -83,4 +83,7 @@ FROM STUDENT t1 left join address t2 on t1.addr_id=t2.id WHERE t1.id=#{Id}
     <select id="listPagedStudent" resultType="Student">
           SELECT * FROM STUDENT
     </select>
+    <select id="listExtendedStudent" resultType="ExtendedStudent">
+          SELECT id,name,NAME as nickName FROM STUDENT
+    </select>
 </mapper>
