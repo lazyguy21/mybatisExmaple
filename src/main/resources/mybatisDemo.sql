@@ -3,7 +3,7 @@
 /* Created on:     2014-12-17 15:13:02                          */
 /*==============================================================*/
 
-
+USE  test;
 DROP TABLE IF EXISTS address;
 
 DROP TABLE IF EXISTS course;

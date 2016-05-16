@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oop.eksp.user.data.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.oop.eksp.user.model.Student" >
+    <id column="t1_id" property="id" jdbcType="INTEGER" />
+    <result column="t1_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="t1_email" property="email" jdbcType="VARCHAR" />
+    <result column="t1_phone" property="phone" jdbcType="VARCHAR" />
+    <result column="t1_dob" property="dob" jdbcType="VARCHAR" />
+    <result column="t1_addr_id" property="addrId" jdbcType="INTEGER" />
+    <result column="t1_birthday" property="birthday" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    t1.id as t1_id, t1.NAME as t1_NAME, t1.email as t1_email, t1.phone as t1_phone, t1.dob as t1_dob, 
+    t1.addr_id as t1_addr_id, t1.birthday as t1_birthday
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student t1
+    where t1.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oop.eksp.user.model.Student" >
+    insert into student (id, NAME, email, 
+      phone, dob, addr_id, 
+      birthday)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{dob,jdbcType=VARCHAR}, #{addrId,jdbcType=INTEGER}, 
+      #{birthday,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.oop.eksp.user.model.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="dob != null" >
+        dob,
+      </if>
+      <if test="addrId != null" >
+        addr_id,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="dob != null" >
+        #{dob,jdbcType=VARCHAR},
+      </if>
+      <if test="addrId != null" >
+        #{addrId,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oop.eksp.user.model.Student" >
+    update student
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="dob != null" >
+        dob = #{dob,jdbcType=VARCHAR},
+      </if>
+      <if test="addrId != null" >
+        addr_id = #{addrId,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oop.eksp.user.model.Student" >
+    update student
+    set NAME = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      dob = #{dob,jdbcType=VARCHAR},
+      addr_id = #{addrId,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

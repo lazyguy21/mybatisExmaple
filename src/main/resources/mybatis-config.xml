@@ -49,6 +49,7 @@
         <mapper resource="org/yyf/mybatisexmaple/mappers/StudentMapper.xml"/>
         <mapper resource="org/yyf/mybatisexmaple/mappers/EnumTestDomainMapper.xml"/>
         <mapper resource="org/yyf/mybatisexmaple/mappers/CourseMapper.xml"/>
+        <mapper resource="org/yyf/mybatisexmaple/mappers/EmployeeMapper.xml"/>
         <!--<package name="org.yyf.mybatisexmaple.mappers"></package>-->
     </mappers>
 </configuration>
