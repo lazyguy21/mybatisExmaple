@@ -6,6 +6,7 @@ import org.yyf.mybatisexmaple.domain.Color;
 import org.yyf.mybatisexmaple.domain.EnumTestDomain;
 import org.yyf.mybatisexmaple.domain.Level;
 import org.yyf.mybatisexmaple.mappers.EnumTestDomainMapper;
+import org.yyf.mybatisexmaple.plugin.ComputerState;
 import org.yyf.mybatisexmaple.util.MyBatisSqlSessionFactory;
 
 import java.util.List;
@@ -35,9 +36,10 @@ public class EnumTestDomainMapperTest {
     public void insertEnumTestDomainTest() {
         SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
         EnumTestDomain domain = new EnumTestDomain();
-        domain.setId(2L);
+        domain.setId(1L);
         domain.setColor(Color.Blue);
         domain.setLevel(Level.MEDIUM);
+        domain.setComputerState(ComputerState.UNKNOWN);
         sqlSession.insert("insertEnumTestDomain", domain);
         sqlSession.commit();
         sqlSession.close();

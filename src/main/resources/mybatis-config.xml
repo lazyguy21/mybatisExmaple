@@ -9,6 +9,12 @@
         <!--<typeAlias alias="Student" type="org.yyf.mybatisexmaple.domain.Student"/>-->
         <package name="org.yyf.mybatisexmaple.domain"/>
     </typeAliases>
+
+    <typeHandlers>
+        <!--<typeHandler handler="org.yyf.mybatisexmaple.plugin.CodeEnumTypeHandler" javaType="org.yyf.mybatisexmaple.plugin.ComputerState"/>-->
+        <typeHandler handler="org.yyf.mybatisexmaple.plugin.CodeEnumTypeHandler" javaType="org.yyf.mybatisexmaple.plugin.CodeInsideEnum"/>
+    </typeHandlers>
+
     <plugins>
         <!-- com.github.pagehelper为PageHelper类所在包名 -->
         <plugin interceptor="com.github.pagehelper.PageHelper">

@@ -9,11 +9,12 @@
         <result column="level" property="level" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
     </resultMap>
     <select id="getAllItems" resultMap="ETDomain">
-           select id,color,level from enumtestdomain
+           select id,color,level,computerState from enumtestdomain
     </select>
     <insert id="insertEnumTestDomain" parameterType="EnumTestDomain">
-          insert into enumtestdomain(id,color,level) values
-          (#{id},#{color},#{level, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler})
+          insert into enumtestdomain(id,color,level,computerState) values
+          (#{id},#{color},#{level, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{computerState})
     </insert>
+
 
 </mapper>

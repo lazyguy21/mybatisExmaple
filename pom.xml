@@ -13,7 +13,7 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.2.7</version>
+            <version>3.4.6</version>
         </dependency>
         <!--mybatis分页插件-->
         <!--http://git.oschina.net/free/Mybatis_PageHelper/wikis/HowToUse-->
@@ -57,6 +57,11 @@
             <version>1.16.18</version>
             <scope>provided</scope>
         </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>19.0</version>
+      </dependency>
 
     </dependencies>
     <build>

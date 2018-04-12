@@ -8,5 +8,7 @@ import java.util.List;
  * Created by yeyf on 2014-12-18.
  */
 public interface EnumTestDomainMapper {
-    public List<EnumTestDomain> getAllItems();
+  List<EnumTestDomain> getAllItems();
+
+  void insertEnumTestDomain(EnumTestDomain enumTestDomain);
 }
